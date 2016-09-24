@@ -1,0 +1,93 @@
+\documentclass[12pt]{article}
+% \documentclass[12pt]{beamer}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{color}
+\usepackage[T1]{fontenc}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{kotex}
+\usepackage[shortlabels]{enumitem}
+\usepackage{tcolorbox}
+\usepackage{bm}
+\usepackage{tgtermes}
+\usepackage{newtxtext}
+\usepackage[lite,nofontinfo]{mtpro2}
+\usepackage{setspace} %줄간격 package
+%-------------------------------------------------------------------------------------
+% Page layout
+\addtolength{\textwidth}{1.2in}
+\addtolength{\oddsidemargin}{-0.6in}
+\addtolength{\textheight}{2.0in}
+\addtolength{\topmargin}{-1.0in}
+\renewcommand \baselinestretch{1.2}
+\parskip = 6pt
+% New command
+\newcommand {\AND}{\quad\mbox{and}\quad}
+\newcommand {\for}{\quad\mbox{ for }}
+\newcommand {\half}{{\tfrac 12}}
+% \newcommand {\bm} [1] {\mbox{\boldmath{$#1$}}}
+\newcommand{\bs}{\boldsymbol}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareSymbolFont{newtxletters}{OML}{ntxmi}{m}{it}
+\SetSymbolFont{newtxletters}{bold}{OML}{ntxmi}{b}{it}
+\DeclareMathSymbol{\gamma}{\mathord}{newtxletters}{13}
+% \setmainfont{TEX Gyre Termes}
+% \setmathfont[bold-style=TeX]{TG Termes Math}
+\begin{document}
+\setstretch{1.4} %줄간격 조정
+\title{Stochastic Dynammic Programming}
+%------------------------------------------------------------------------------------%
+%------------------------------------------------------------------------------------%
+% \setcounter{section}{1}
+
+\section{2016/09/13}
+\vspace{0.3cm}
+\ \ \ \subsection{The Longest Common Subsequence}
+From a string $S$ of length $m$, there will be a considerable number of subsequence. The longest common subsequence problem tries to find the longest subset of the string that lies both in two different strings. It is used in DNA sequencing and also in UNIX or LINUX operating systems.\par
+Let the two sequences be
+\begin{align}
+  S&=\left\langle s_{1},s_{2},\ldots,s_{m}\right\rangle=S\left[1\ldots m\right]\\
+  T &= \left\langle t_{1},t_{2},\ldots,t_{n}\right\rangle=T\left[1\ldots  n\right]
+\end{align}
+and let the common subsequence be denoted by $U\left[1\ldots \right]$ if
+\begin{align}
+  1&\leq i_{1} \leq i_{2} \leq \ldots \leq i_{k} \leq m\\
+  1 \leq j_{1} \leq j_{2} \leq \ldots \leq j_{k} \leq n
+\end{align}
+such that $S\left[i_{k}\right]=T\left[i_{t}\right]=U\left[t\right]$ for all $t\in\left\{1,2,\ldots,k\right\}$.\par
+(Approach based on the recursive equations): Define
+\begin{equation}
+  \mathrm{LCS}\left[i,j\right] = \text{length of LCS of } S\left[1\ldots i\right] \text{ \& } T\left[1\ldots j\right]
+\end{equation}
+In other words, break down the problem into a smaller problem where the two strings are shorter and then find the longest common subsequence. For example, let's say there are two strings of length $5$ and we want to find $\mathrm{LCS}\left[3,2\right]$. We first look at the last characters of both strings and break it down to two different situations.
+\begin{itemize}
+  \item where $S\left[3\right]=T\left[2\right]$
+  \item where $S\left[3\right]\neq T\left[2\right]$
+\end{itemize}
+In the first case, the solution would be as follows
+\begin{equation}
+  \mathrm{LCS}\left[3,2\right] = 1+\mathrm{LCS}\left[2,1\right]
+\end{equation}
+and the second case,
+\begin{equation}
+  \mathrm{LCS}\left[3,2\right] = \max\left\{\mathrm{LCS}\left[2,2\right],\mathrm{LCS}\left[3,1\right]\right\}
+\end{equation}
+Therefore, to generalize
+\begin{equation}
+  \mathrm{LCS}\left[i,j\right] = \begin{cases}\max\left\{\mathrm{LCS}\left[i-1,j\right],\mathrm{LCS}\left[i,j-1\right]\right\},& \text{if $S\left[i\right]\neq T\left[j\right]$}\\ \mathrm{LCS}\left[i-1,j-1\right],&\text{if $S\left[i\right]=T\left[j\right]$} \end{cases}
+\end{equation}
+\subsection{Dynamic Programming}
+Dynamic programming is essentially breaking down the problem into its smaller subsets and then sequentially solving them to obtain the final solution to the original problem. It is also the reason why we call the problems that DP deals with \emph{multi-stage decision problems}.
+\subsection{The Principle of Optimality}
+\begin{itemize}
+  \item The principle of optimility holds if
+  \begin{itemize}
+    \item every optimal solution to a problem contains the optimal solutions to all sub-problems.
+  \end{itemize}
+  \item However, the principle of optimality does not say
+  \begin{itemize}
+    \item if you have optimal solutions to all subproblems, you can combine them to get an optimal solution of a problem.
+  \end{itemize}
+\end{itemize}
+\end{document}

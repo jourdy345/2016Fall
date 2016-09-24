@@ -1,0 +1,328 @@
+\title{Economic Time Series HW1}
+\author{Daeyoung Lim}
+
+\documentclass[answers]{exam}
+\usepackage[left=3cm,right=3cm,top=3.5cm,bottom=2cm]{geometry}
+\usepackage{amssymb,amsmath,amsfonts,amsthm}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{kotex}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+% \usepackage{enumerate}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{cancel}
+\usepackage{array}
+\usepackage{courier}
+\usepackage{booktabs}
+\usepackage{titlesec}
+\usepackage[shortlabels]{enumitem}
+\usepackage{setspace}
+\usepackage{newtxtext}
+\usepackage[lite,nofontinfo,zswash,straightbraces]{mtpro2}
+\usepackage{empheq}
+\usepackage{tikz}
+\usepackage{listings}
+
+% \usepackage[toc,page]{appendix}
+
+\setlength{\heavyrulewidth}{1.5pt}
+\setlength{\abovetopsep}{4pt}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\newcommand\encircle[1]{%
+  \tikz[baseline=(X.base)] 
+    \node (X) [draw, shape=circle, inner sep=0] {\strut #1};}
+ 
+% Command "alignedbox{}{}" for a box within an align environment
+% Source: http://www.latex-community.org/forum/viewtopic.php?f=46&t=8144
+\newlength\dlf  % Define a new measure, dlf
+\newcommand\alignedbox[2]{
+% Argument #1 = before & if there were no box (lhs)
+% Argument #2 = after & if there were no box (rhs)
+&  % Alignment sign of the line
+{
+\settowidth\dlf{$\displaystyle #1$}  
+    % The width of \dlf is the width of the lhs, with a displaystyle font
+\addtolength\dlf{\fboxsep+\fboxrule}  
+    % Add to it the distance to the box, and the width of the line of the box     ㅊ
+\hspace{-\dlf}  
+    % Move everything dlf units to the left, so that & #1 #2 is aligned under #1 & #2
+\boxed{#1 #2}
+    % Put a box around lhs and rhs
+}
+}
+\setcounter{secnumdepth}{4}
+\lstset{
+         basicstyle=\footnotesize\ttfamily, % Standardschrift
+         %numbers=left,               % Ort der Zeilennummern
+         numberstyle=\tiny,          % Stil der Zeilennummern
+         %stepnumber=2,               % Abstand zwischen den Zeilennummern
+         numbersep=5pt,              % Abstand der Nummern zum Text
+         tabsize=2,                  % Groesse von Tabs
+         extendedchars=true,         %
+         breaklines=true,            % Zeilen werden Umgebrochen
+         keywordstyle=\color{red},
+            frame=b,         
+ %        keywordstyle=[1]\textbf,    % Stil der Keywords
+ %        keywordstyle=[2]\textbf,    %
+ %        keywordstyle=[3]\textbf,    %
+ %        keywordstyle=[4]\textbf,   \sqrt{\sqrt{}} %
+         stringstyle=\color{white}\ttfamily, % Farbe der String
+         showspaces=false,           % Leerzeichen anzeigen ?
+         showtabs=false,             % Tabs anzeigen ?
+         xleftmargin=17pt,
+         framexleftmargin=17pt,
+         framexrightmargin=5pt,
+         framexbottommargin=4pt,
+         %backgroundcolor=\color{lightgray},
+         showstringspaces=false      % Leerzeichen in Strings anzeigen ?        
+ }
+ \lstloadlanguages{% Check Dokumentation for further languages ...
+         %[Visual]Basic
+         %Pascal
+         %C
+         %C++
+         %XML
+         %HTML
+         Java
+ }
+    %\DeclareCaptionFont{blue}{\color{blue}} 
+
+\definecolor{myblue}{RGB}{72, 165, 226}
+\definecolor{myorange}{RGB}{222, 141, 8}
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+\setlength{\heavyrulewidth}{1.5pt}
+\setlength{\abovetopsep}{4pt}
+\setlength{\parindent}{0mm}
+\linespread{1.3}
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+\DeclareMathOperator{\Tr}{Tr}
+
+\newcommand{\bs}{\boldsymbol}
+\newcommand{\opn}{\operatorname}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % We use newtheorem to define theorem-like structures
+% %
+% % Here are some common ones. . .
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \newtheorem{theorem}{Theorem}
+% \newtheorem{lemma}{Lemma}
+% \newtheorem{proposition}{Proposition}
+% \newtheorem{scolium}{Scolium}   %% And a not so common one.
+% \newtheorem{definition}{Definition}
+% \newenvironment{proof}{{\sc Proof:}}{~\hfill QED}
+% \newenvironment{AMS}{}{}
+% \newenvironment{keywords}{}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %   The first thanks indicates your affiliation
+% %
+% %  Just the name here.
+% %
+% % Your mailing address goes at the end.
+% %
+% % \thanks is also how you indicate grant support
+% %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+\setstretch{1.5} %줄간격 조정
+\newpage
+\firstpageheader{}{}{\bf\large Daeyoung Lim \\ Economic Time Series \\ Fall Semester, 2016}
+\runningheader{Daeyoung Lim}{Economic Time Series}{Fall Semester, 2016}
+\begin{questions}
+  \question
+  Replicate Figures 1,5,6 and 7 in the Matlab exercise. In doing so, make the following modifications to the figures.
+  \begin{enumerate}[(1)]
+    \item In figure 1, use ``plot'' instead of ``stairs'', and use a dotted line instead of a solid line.
+    \item In figure 5, plot the data from Jan 2004 only and remove all grid lines.
+    \item Put figures 6 and 7 on a common figure frame in $2\times 2$ format.
+  \end{enumerate}
+  \begin{solution}
+
+  \end{solution}
+  \question
+  Suppose that the data are generated by the following model
+  \begin{align}
+    y &= X\beta+u\\
+      &= X_{1}\beta_{1}+X_{2}\beta_{2}+u
+  \end{align}
+  where $X=\left[X_{1},X_{2}\right]$. Assume that $X$ is of full column rank, $T^{-1}X'X\xrightarrow{p}Q$, and $\beta_{2}\neq 0$. Denote the OLS estimate for (1) by $\what{\beta}_{1}$ and $\what{\beta}_{2}$. Suppose you estimate the regression
+  \begin{equation}
+    y=X_{1}\beta_{1}+e
+  \end{equation}
+  by OLS and denote the resulting estimate by $\what{b}_{1}$.
+  \begin{enumerate}[a)]
+    \item Show that $\what{b}_{1}$ is inconsistent for $\beta_{1}$, with assuming $\mathrm{E}\left(X_{1}'X_{2}^{}\right)\neq 0$.
+    \item The inconsistency of $\what{b}_{1}$ is an example of the omitted variable bias. A natural estimate would then be based on an instrumental variable procedure. Show that the OLS estimate $\what{\beta}_{1}$ can indeed be given an IV interpretation.
+  \end{enumerate}
+  \begin{solution}
+    \begin{enumerate}[a)]
+      \item The omitted variable bias lingers even when the sample size grows large causing the estimators to be inconsistent. We can show this by simply plugging in the true model of $y$ to the estimator $\what{b}_{1}$.
+      \begin{align}
+        \what{b}_{1} &= \left(X_{1}'X_{1}\right)^{-1}X_{1}'y\\
+        &= \left(X_{1}'X_{1}^{}\right)^{-1}X_{1}'\left(X_{1}\beta_{1}+X_{2}\beta_{2}+u\right)\\
+        &= \beta_{1}+\left(X_{1}'X_{1}^{}\right)^{-1}X_{1}'X_{2}^{}\beta_{2}^{}+\left(X_{1}'X_{1}^{}\right)^{-1}X_{1}'u
+      \end{align}
+      The problem states that $\mathrm{E}\left(X_{1}'X_{2}^{}\right)\neq 0, \beta_{2}\neq 0$, preserving the second term. Note that the only \emph{random variable} in the above equation is $u$, converging in probability to zero as $T\to\infty$ where $T$ is the dimension of $y\, \left(T\times 1\right)$. Thus, there is no reason for the second term $\left(X_{1}'X_{1}^{}\right)^{-1}X_{1}'X_{2}^{}\beta_{2}^{}$ to disappear.
+      \begin{equation}
+        \what{b}_{1}\xrightarrow{p} \beta_{1}+\beta_{2}\left(X_{1}'X_{1}^{}\right)^{-1}X_{1}'X_{2}^{}
+      \end{equation}
+      \item $X_{2}$ is by assumption independent of the error term $u$. Therefore, using the method of moment, if we have $\mathrm{E}\left(x_{i2}u_{i}\right)=0$,
+      \begin{equation}
+        \dfrac{1}{T}\sum_{t=1}^{T}x_{i2}u_{i}=\dfrac{1}{T}X_{2}'u=\dfrac{1}{T}X_{2}'\left(y-X_{1}\beta_{1}\right).
+      \end{equation}
+      Solving with respect to $\beta_{1}$ yields
+      \begin{equation}
+        \what{\beta}_{1} = \left(X_{2}'X_{1}^{}\right)^{-1}X_{2}'y
+      \end{equation}
+      which is the IV estimate.
+    \end{enumerate}
+  \end{solution}
+  \question
+  Consider the linear regression model:
+  \begin{align}
+    y &= X\beta+u\\
+    y,u &: T\times 1\\
+    X &: T\times k\\
+    \beta &: k\times 1
+  \end{align}
+  with the $q$ moment conditions $\mathrm{E}\left(z_{t}u_{t}\right)=0$. Let
+  \begin{equation}
+    J_{T}\left(\beta,W_{T}\right)=g_{T}\left(\beta\right)'W_{T}g_{T}\left(\beta\right)
+  \end{equation}
+  where $g_{T}\left(\beta\right)=T^{-1}\sum z_{t}\left(y_{t}-x_{t}'\beta\right)$ and $W_{T}$ is some weighting matrix. The GMM estimator for $\beta$ is obtained as the minimizer of $J_{T}\left(\beta,W_{T}\right)$.
+  \begin{enumerate}[a)]
+    \item How does your choice of $W_{T}$ affect the GMM estimator? Discuss the implications on the consistency, the asymptotic normality and efficiency.
+    \item If the model is exactly identified $(k=q)$, explain why the choice of $W_{T}$ becomes irrelevant.
+  \end{enumerate}
+  \begin{solution}
+    \begin{enumerate}[a)]
+      \item 
+    \end{enumerate}
+  \end{solution}
+  \question
+  Let $y_{t}\overset{\text{iid}}{\sim}\mathrm{Exp}\left(\theta\right)$ for $t=1,\ldots,T$.
+  \begin{enumerate}[a)]
+    \item Derive the score function, Hessian function and information matrix, using the exponential density.
+    \item Derive the MLE for $\theta$. Sketch the proof that the MLE is asymptotically normal. Be specific with the asymptotic variance.
+  \end{enumerate}
+  \begin{solution}
+    \begin{enumerate}[a)]
+      \item The likelihood function of $y_{1},\ldots,y_{T}$,
+      \begin{equation}
+        L\left(\theta\,\middle|\,y_{1}\ldots,y_{T}\right) = \theta^{T}\exp\left(-\theta\sum_{t=1}^{T}y_{t}\right).
+      \end{equation}
+      Taking the logarithm yields
+      \begin{equation}
+        \ell\left(\theta\,\middle|\,y_{1},\ldots,y_{T}\right) = T\log\theta-\theta\sum_{t=1}^{T}y_{t}.
+      \end{equation}
+      By definition of the score function is the first derivative of the log-likelihood.
+      \begin{equation}
+        \dfrac{d\ell}{d\theta} = \dfrac{T}{\theta}-\sum_{t=1}^{T}y_{t}.
+      \end{equation}
+      The Hessian gets reduced to the second derivative for a univariate function.
+      \begin{equation}
+        \dfrac{d^{2}\ell}{d\theta^{2}} = -\dfrac{T}{\theta^{2}}-\sum_{t=1}^{T}y_{t}.
+      \end{equation}
+      To get the Fisher information,
+      \begin{align}
+        \mathcal{I}_{T}\left(\theta\right) &= \dfrac{1}{T}\mathrm{E}\left(\dfrac{T}{\theta^{2}}+\sum_{t=1}^{T}y_{t}\right)\\
+        &= \dfrac{1}{\theta^{2}}+\dfrac{1}{T}\sum_{t=1}^{T}\mathrm{E}\left(y_{t}\right)\\
+        &= \dfrac{1}{\theta^{2}}+\dfrac{1}{\theta}
+      \end{align}
+      \item We have obtained the first and second derivatives of the log-likelihood already. Recall:
+      \begin{align}
+        \dfrac{d\ell}{d\theta} &= \dfrac{T}{\theta}-\sum_{t=1}^{T}y_{t}\\
+        \dfrac{d^{2}\ell}{d\theta^{2}} &= -\dfrac{T}{\theta^{2}}-\sum_{t=1}^{T}y_{t}
+      \end{align}
+      Using the first-order condition, the MLE comes with a closed-form expression.
+      \begin{equation}
+        \what{\theta}^{\text{MLE}} = \left.T\middle/\left(\sum_{t=1}^{T}y_{t}\right)\right.
+      \end{equation}
+      The second-order condition validates that the estimator is actually a maximum since
+      \begin{equation}
+        \dfrac{d^{2}\ell}{d\theta^{2}} < 0.
+      \end{equation}
+      Now, even as rough a proof as what we will shortly give here takes at least 2 steps: the consistency of MLE and the asymptotic normality of MLE.
+      \begin{itemize}
+        \item \emph{(Consistency)} Recall that we take the product of every single PDF of $y_{t}$ through $t=1,\ldots,T$ to compute the likelihood function, which also means taking the logarithm will convert the product into summation.
+        \begin{equation}
+          \ell\left(\theta\,\middle|\,y_{1},\ldots,y_{T}\right) = \sum_{t=1}^{T}\ell\left(\theta\,\middle|\,y_{t}\right)
+        \end{equation}
+        By the strong law of large numbers, we get the following relation:
+        \begin{equation}\label{eq:1}
+          \dfrac{1}{T}\sum_{t=1}^{T}\ell\left(\theta\,\middle|\,y_{t}\right)\xrightarrow{a.s.}\mathrm{E}_{\theta_{\circ}}\ell\left(\theta\,\middle|\,y_{1}\right)
+        \end{equation}
+        for some unknown true parameter value $\theta_{\circ}$. We can then show that the expected log-likelihood function w.r.t. the true parameter is always greater than that of an arbitrary parameter $\theta$ by \emph{Kullback-Leibler divergence}. The KL divergence is defined as follows.
+        \begin{align}
+          \mathrm{KL}\left(f(y_{1}\,|\,\theta_{\circ})\,\middle\|\,f(y_{1}\,|\,\theta)\right) &= \mathrm{E}_{\theta_{\circ}}\left[\log \dfrac{f(y_{1}\,|\,\theta_{\circ})}{f(y_{1}\,|\,\theta)} \right]\\
+          &= -\int \log \dfrac{f(y_{1}\,|\,\theta)}{f(y_{1}\,|\,\theta_{\circ})}\; f(y_{1}\,|\,\theta_{\circ})\,dy_{1}
+        \end{align}
+        By \emph{Jensen's inequality},
+        \begin{equation}
+          \underbrace{-\log\int \dfrac{f(y_{1}\,|\,\theta)}{\cancel{f(y_{1}\,|\,\theta_{\circ})}}\; \cancel{f(y_{1}\,|\,\theta_{\circ})}\,dy_{1}}_{=0} \leq \underbrace{-\int \log \dfrac{f(y_{1}\,|\,\theta)}{f(y_{1}\,|\,\theta_{\circ})}\; f(y_{1}\,|\,\theta_{\circ})\,dy_{1}}_{=\mathrm{KL}\left(f(y_{1}\,|\,\theta_{\circ})\,\middle\|\,f(y_{1}\,|\,\theta)\right) }.
+        \end{equation}
+        Therefore, it always follows that the KL divergence is nonnegative. In fact, it is strictly positive if $f(y_{1}\,|\,\theta)\neq f(y_{1}\,|\,\theta_{\circ})$.
+      This indicates that
+      \begin{equation}
+        \theta_{\circ} = \sup_{\theta\in\Omega}\mathrm{E}_{\theta_{\circ}}\ell\left(\theta\,\middle|\,y_{1}\right).
+      \end{equation}
+      Recall the following:
+      \begin{equation}
+        \what{\theta}^{\text{MLE}} = \sup_{\theta\in\Omega}\dfrac{1}{T}\sum_{t=1}^{T}\ell\left(\theta\,\middle|\,y_{i}\right).
+      \end{equation}
+      Therefore by \ref{eq:1}, $\what{\theta}^{\text{MLE}}\xrightarrow{p} \theta_{\circ}$ uniformly for a finite parameter space $\Omega$. To extend this to an infinite space, we need to add some conditions. Since the question asked for a sketch of the proof, the proof ends here.
+      \item \emph{(Asymptotic Normality)} We approximate the score function with its first-order Taylor expansion around the true parameter $\theta_{\circ}$ and apply the mean value theorem.
+      \begin{equation}
+        \dfrac{d\ell}{d\theta} \approx \left.\dfrac{d\ell}{d\theta}\right|_{\theta=\theta_{\circ}}+\left.\dfrac{d^{2}\ell}{d\theta^{2}}\right|_{\theta=\overline{\theta}}\left(\theta-\theta_{\circ}\right)
+      \end{equation}
+      where $\overline{\theta}$ lies somewhere between $\theta$ and $\theta_{\circ}$. Since MLE is the value which sets the first derivative to zero, we can think of the following identity.
+      \begin{equation}
+        \left.\dfrac{d\ell}{d\theta}\right|_{\theta=\theta_{\circ}}+\left.\dfrac{d^{2}\ell}{d\theta^{2}}\right|_{\theta=\overline{\theta}}\left(\what{\theta}^{\text{MLE}}-\theta_{\circ}\right)=0
+      \end{equation}
+      This, in turn, translates to the following relationship.
+      \begin{equation}\label{asympNorm}
+        \what{\theta}^{\text{MLE}}-\theta_{\circ} =-\left.\left(\left.\dfrac{d\ell}{d\theta}\right|_{\theta=\theta_{\circ}}\right)\middle/\left(\left.\dfrac{d^{2}\ell}{d\theta^{2}}\right|_{\theta=\overline{\theta}}\right)\right.
+      \end{equation}
+      with $\overline{\theta} = s\what{\theta}^{\text{MLE}}+\left(1-s\right)\theta_{\circ},\; s\in\left[0,1\right]$. Let's slowly examine the RHS of \ref{asympNorm}. First, the numerator can be expressed as a summation of the log-likelihood of a single observation.
+      \begin{equation}
+        \left.\dfrac{d\ell\left(\theta\,|\,y_{1:T}\right)}{d\theta}\right|_{\theta=\theta_{\circ}} = \sum_{t=1}^{T}\left.\dfrac{d\ell\left(\theta\,|\,y_{t}\right)}{d\theta}\right|_{\theta=\theta_{\circ}}
+      \end{equation}
+      By the \emph{Central Limit Theorem},
+      \begin{align}\label{CLT}
+        \mathrm{E}\left(\left.\dfrac{d\ell\left(\theta\,|\,y_{1}\right)}{d\theta}\right|_{\theta=\theta_{\circ}}\right) &= 0\\
+        \mathrm{Var}\left(\left.\dfrac{d\ell\left(\theta\,|\,y_{1}\right)}{d\theta}\right|_{\theta=\theta_{\circ}}\right) &= T\mathcal{I}_{1}\left(\theta\right)\\
+        \left.\dfrac{d\ell\left(\theta\,|\,y_{1:T}\right)}{d\theta}\right|_{\theta=\theta_{\circ}} \xrightarrow{d} \mathcal{N}\left(0,T\mathcal{I}_{1}\left(\theta_{\circ}\right)\right)
+      \end{align}
+      where $\mathcal{I}_{1}$ is the Fisher information for a single observation $y_{1}$. The calculations for the expectation and the variance are given in the end. Now the denominator behaves like the following which can be demonstrated by the weak law of large numbers.
+      \begin{equation}\label{WLLN}
+        \left.\dfrac{d^{2}\ell\left(\theta\,\middle|\,y_{1:T}\right)}{d\theta^{2}}\right|_{\theta=\overline{\theta}}=\sum_{t=1}^{T}\left.\dfrac{d^{2}\ell\left(\theta\,\middle|\,y_{t}\right)}{d\theta^{2}}\right|_{\theta=\overline{\theta}} \xrightarrow{p} T\mathrm{E}\left(\left.\dfrac{d^{2}\ell\left(\theta\,\middle|\,y_{1}\right)}{d\theta^{2}}\right|_{\theta=\overline{\theta}} \right) =-T\mathcal{I}_{1}\left(\overline{\theta}\right)
+      \end{equation}
+      With \ref{CLT}, \ref{WLLN}, and the \emph{Slutsky's theorem}, we can conclude that \ref{asympNorm} converges in distribution to a normal distribution.
+      \begin{equation}
+        -\left.\left(\left.\dfrac{d\ell}{d\theta}\right|_{\theta=\theta_{\circ}}\right)\middle/\left(\left.\dfrac{d^{2}\ell}{d\theta^{2}}\right|_{\theta=\overline{\theta}}\right)\right. \xrightarrow{d} \mathcal{N}\left(0,\dfrac{T\mathcal{I}_{1}\left(\theta_{\circ}\right)}{\left(T\mathcal{I}_{1}\left(\overline{\theta}\right)\right)^{2}}=\dfrac{\mathcal{I}_{T}\left(\theta_{\circ}\right)}{\left(\mathcal{I}_{T}\left(\overline{\theta}\right)\right)^{2}}\right)
+      \end{equation}
+      Finally, we know that $\overline{\theta}\in \left[\what{\theta}^{\text{MLE}},\theta_{\circ}\right]$ if $\what{\theta}^{\text{MLE}} < \theta_{\circ}$ or $\overline{\theta}\in \left[\theta_{\circ},\what{\theta}^{\text{MLE}}\right]$ if $\what{\theta}^{\text{MLE}} \geq \theta_{\circ}$. As $T\to\infty$, $\what{\theta}^{\text{MLE}}\xrightarrow{p}\theta_{\circ}$ which also means $\overline{\theta}\xrightarrow{p}\theta_{\circ}$. Thus,
+      \begin{equation}
+        \what{\theta}^{\text{MLE}} \xrightarrow{d} \mathcal{N}\left(\theta_{\circ},\left(\mathcal{I}_{T}\left(\theta_{\circ}\right)\right)^{-1}\right)
+      \end{equation}
+      \end{itemize}
+    \end{enumerate}
+    There are 3 different ways to compute the Fisher information and all three are equivalent under regularity conditions. The three are
+    \begin{align}
+      \mathcal{I}\left(\theta\right) &= \mathrm{E}\left(\left(\dfrac{d\ell}{d\theta}\right)^{2}\right)\\
+      &= -\mathrm{E}\left(\dfrac{d^{2}\ell}{d\theta^{2}}\right)\\
+      &= \mathrm{Var}\left(\dfrac{d\ell}{d\theta}\right)
+    \end{align}
+  \end{solution}
+  \end{questions}
+\end{document}
