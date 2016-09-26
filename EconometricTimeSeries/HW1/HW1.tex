@@ -280,7 +280,15 @@
       \begin{equation}
         \what{\theta}^{\text{MLE}} = \sup_{\theta\in\Omega}\dfrac{1}{T}\sum_{t=1}^{T}\ell\left(\theta\,\middle|\,y_{i}\right).
       \end{equation}
-      Therefore by \ref{eq:1}, $\what{\theta}^{\text{MLE}}\xrightarrow{p} \theta_{\circ}$ uniformly for a finite parameter space $\Omega$. To extend this to an infinite space, we need to add some conditions. Since the question asked for a sketch of the proof, the proof ends here.
+      Therefore by \ref{eq:1}, $\what{\theta}^{\text{MLE}}\xrightarrow{p} \theta_{\circ}$ for a finite parameter space $\Omega$. We can also prove this for a compact parameter space by starting from the lemma that
+      \begin{equation}
+        \dfrac{1}{T}\sum_{t=1}^{T}\ell\left(\theta\,|\,y_{t}\right)\xrightarrow{\text{uniformly convergent}} \int \ell\left(\theta\,|\,y_{1}\right)f(y_{1}\,|\,\theta_{0})\,dy_{1}\quad \left(=\mathrm{E}_{\theta_{0}}\ell\left(\theta\,|\,y_{1}\right)\right)
+      \end{equation}
+      which is equivalent to
+      \begin{equation}\label{almostSure}
+        \mathrm{Pr}\left(\sup_{\theta\in\Omega}\left|\dfrac{1}{T}\sum_{t=1}^{T}\ell\left(\theta\,|\,y_{t}\right)-\mathrm{E}_{\theta_{0}}\ell\left(\theta\,|\,y_{1}\right)\right|>\epsilon\right)\xrightarrow{p} 0,\quad \forall \epsilon >0.
+      \end{equation}
+      Pointwise convergence is not enough with infinite parameter spaces because the convergence with one set of realizations does not guarantee the convergence with another. Anyway, the proof for the consistency of MLE ends here.
       \item \emph{(Asymptotic Normality)} We approximate the score function with its first-order Taylor expansion around the true parameter $\theta_{\circ}$ and apply the mean value theorem.
       \begin{equation}
         \dfrac{d\ell}{d\theta} \approx \left.\dfrac{d\ell}{d\theta}\right|_{\theta=\theta_{\circ}}+\left.\dfrac{d^{2}\ell}{d\theta^{2}}\right|_{\theta=\overline{\theta}}\left(\theta-\theta_{\circ}\right)
@@ -303,7 +311,7 @@
         \mathrm{Var}\left(\left.\dfrac{d\ell\left(\theta\,|\,y_{1}\right)}{d\theta}\right|_{\theta=\theta_{\circ}}\right) &= T\mathcal{I}_{1}\left(\theta\right)\\
         \left.\dfrac{d\ell\left(\theta\,|\,y_{1:T}\right)}{d\theta}\right|_{\theta=\theta_{\circ}} \xrightarrow{d} \mathcal{N}\left(0,T\mathcal{I}_{1}\left(\theta_{\circ}\right)\right)
       \end{align}
-      where $\mathcal{I}_{1}$ is the Fisher information for a single observation $y_{1}$. The calculations for the expectation and the variance are given in the end. Now the denominator behaves like the following which can be demonstrated by the weak law of large numbers.
+      where $\mathcal{I}_{1}$ is the Fisher information for a single observation $y_{1}$. The calculations for the expectation and the variance are given in the end. Now the denominator behaves like the following which makes use of the weak law of large numbers.
       \begin{equation}\label{WLLN}
         \left.\dfrac{d^{2}\ell\left(\theta\,\middle|\,y_{1:T}\right)}{d\theta^{2}}\right|_{\theta=\overline{\theta}}=\sum_{t=1}^{T}\left.\dfrac{d^{2}\ell\left(\theta\,\middle|\,y_{t}\right)}{d\theta^{2}}\right|_{\theta=\overline{\theta}} \xrightarrow{p} T\mathrm{E}\left(\left.\dfrac{d^{2}\ell\left(\theta\,\middle|\,y_{1}\right)}{d\theta^{2}}\right|_{\theta=\overline{\theta}} \right) =-T\mathcal{I}_{1}\left(\overline{\theta}\right)
       \end{equation}

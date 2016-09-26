@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  25 SEP 2016 01:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  26 SEP 2016 15:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1335,29 +1335,37 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ] [2] [3]
-Underfull \vbox (badness 10000) detected at line 326
+Underfull \vbox (badness 10000) detected at line 334
  []
 
 
-Underfull \vbox (badness 10000) detected at line 326
+Underfull \vbox (badness 10000) detected at line 334
  []
 
 [4]
-Underfull \vbox (badness 10000) detected at line 326
+Underfull \vbox (badness 10000) detected at line 334
  []
 
 
-Underfull \vbox (badness 10000) detected at line 326
+Underfull \vbox (badness 10000) detected at line 334
  []
 
-[5] [6]
+[5]
+Underfull \vbox (badness 10000) detected at line 334
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 334
+ []
+
+[6] [7]
 This exam contains 4 questions with 0 parts, 0 subparts, and 0 subsubparts.
 (./HW1.aux) ) 
 Here is how much of TeX's memory you used:
- 18977 strings out of 493089
- 338032 string characters out of 6134842
- 447765 words of memory out of 5000000
- 22049 multiletter control sequences out of 15000+600000
+ 18978 strings out of 493089
+ 338044 string characters out of 6134842
+ 449766 words of memory out of 5000000
+ 22050 multiletter control sequences out of 15000+600000
  50465 words of font info for 41 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,21n,54p,883b,581s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1373,10 +1381,10 @@ pctex/mtpro2/mt2sys.pfb></usr/local/texlive/texmf-local/fonts/type1/pctex/mtpro
 2/mt2syt.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/tex-gyre/qt
 mb.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/tex-gyre/qtmr.pfb
 ></usr/local/texlive/2015/texmf-dist/fonts/type1/public/tex-gyre/qtmri.pfb>
-Output written on HW1.pdf (6 pages, 165940 bytes).
+Output written on HW1.pdf (7 pages, 168178 bytes).
 PDF statistics:
- 75 PDF objects out of 1000 (max. 8388607)
- 54 compressed objects within 1 object stream
+ 80 PDF objects out of 1000 (max. 8388607)
+ 58 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

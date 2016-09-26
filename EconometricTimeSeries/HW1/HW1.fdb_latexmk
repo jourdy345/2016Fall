@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1474733424 "HW1.tex" "HW1.pdf" "HW1" 1474733425
+["pdflatex"] 1474871547 "HW1.tex" "HW1.pdf" "HW1" 1474871549
   "/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/newtx/ntx-ec-tlf.enc" 1422827479 2048 81f158c4a081e5d7c947598568390d20 ""
   "/usr/local/texlive/2015/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2015/texmf-dist/fonts/tfm/jknappen/ec/ecrm1000.tfm" 1136768653 3584 adb004a0c8e7c46ee66cad73671f37b4 ""
@@ -182,9 +182,9 @@
   "/usr/local/texlive/texmf-local/fonts/type1/pctex/mtpro2/mt2sys.pfb" 1473501054 32616 2345700e113391cb946f5075a362d5fb ""
   "/usr/local/texlive/texmf-local/fonts/type1/pctex/mtpro2/mt2syt.pfb" 1473501054 32809 69b322fb520d7222eabb9bdecc36590c ""
   "/usr/local/texlive/texmf-local/tex/latex/mtpro2/mtpro2.sty" 1473501054 69791 dfab89806a6883e9eee5d284aa6b43f0 ""
-  "HW1.aux" 1474733424 937 e745843ecd1abf387249bad058723381 ""
-  "HW1.tex" 1474733422 18837 f3b26720f76fb086ab9005ee1b08d216 ""
+  "HW1.aux" 1474871548 968 f89f9ff05870f7feb8b3640ca5b0e2de ""
+  "HW1.tex" 1474871547 19875 96b810334fe501c172841be40116f222 ""
   (generated)
-  "HW1.aux"
-  "HW1.log"
   "HW1.pdf"
+  "HW1.log"
+  "HW1.aux"
