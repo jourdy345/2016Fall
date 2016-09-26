@@ -286,9 +286,9 @@
       \end{equation}
       which is equivalent to
       \begin{equation}\label{almostSure}
-        \mathrm{Pr}\left(\sup_{\theta\in\Omega}\left|\dfrac{1}{T}\sum_{t=1}^{T}\ell\left(\theta\,|\,y_{t}\right)-\mathrm{E}_{\theta_{0}}\ell\left(\theta\,|\,y_{1}\right)\right|>\epsilon\right)\xrightarrow{p} 0,\quad \forall \epsilon >0.
+        \mathrm{Pr}\left(\sup_{\theta\in\Omega}\left|\dfrac{1}{T}\sum_{t=1}^{T}\ell\left(\theta\,|\,y_{t}\right)-\mathrm{E}_{\theta_{0}}\ell\left(\theta\,|\,y_{1}\right)\right|>\epsilon\right)\xrightarrow{a.s.} 0,\quad \forall \epsilon >0.
       \end{equation}
-      Pointwise convergence is not enough with infinite parameter spaces because the convergence with one set of realizations does not guarantee the convergence with another. Anyway, the proof for the consistency of MLE ends here.
+      Pointwise convergence is not enough with infinite parameter spaces because the convergence at one parameter of the log-likelihood function as a function of $y_{1:T}$ does not guarantee that the log-likelihood function with another set of $y_{1:T}$ generated with a different parameter value will not be close to the true expected log-likelihood. Thus, the convergence at one parameter value does not generalize. Anyway, the proof for the consistency of MLE ends here.
       \item \emph{(Asymptotic Normality)} We approximate the score function with its first-order Taylor expansion around the true parameter $\theta_{\circ}$ and apply the mean value theorem.
       \begin{equation}
         \dfrac{d\ell}{d\theta} \approx \left.\dfrac{d\ell}{d\theta}\right|_{\theta=\theta_{\circ}}+\left.\dfrac{d^{2}\ell}{d\theta^{2}}\right|_{\theta=\overline{\theta}}\left(\theta-\theta_{\circ}\right)
