@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  26 SEP 2016 21:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  29 SEP 2016 13:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1332,43 +1332,89 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+)
+<figure_1.png, id=4, 1103.5629pt x 716.1957pt>
+File: figure_1.png Graphic file (type png)
+ <use figure_1.png>
+Package pdftex.def Info: figure_1.png used on input line 152.
+(pdftex.def)             Requested size: 331.07143pt x 214.86037pt.
 
-] [2] [3]
-Underfull \vbox (badness 10000) detected at line 334
+<figure_5.png, id=6, 879.5259pt x 747.9945pt>
+File: figure_5.png Graphic file (type png)
+ <use figure_5.png>
+Package pdftex.def Info: figure_5.png used on input line 154.
+(pdftex.def)             Requested size: 263.8598pt x 224.40007pt.
+
+<figure_67.png, id=7, 1204.0182pt x 841.9455pt>
+File: figure_67.png Graphic file (type png)
+ <use figure_67.png>
+Package pdftex.def Info: figure_67.png used on input line 156.
+(pdftex.def)             Requested size: 361.20825pt x 252.58559pt.
+
+Overfull \hbox (35.32954pt too wide) in paragraph at lines 155--157
+[]\T1/ntxtlf/m/n/10 Figure 6 and 7 [] 
  []
 
+[1{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
-Underfull \vbox (badness 10000) detected at line 334
+ <./figure_1.png> <./figure_5.png>] [2 <./figure_67.png>] [3]
+Overfull \hbox (6.24396pt too wide) in paragraph at lines 238--239
+\T1/ntxtlf/m/n/10 their weight ma-tri-ces. Let us de-fine $\LMP1/mtt/m/it/10 ^^
+? []$ \T1/ntxtlf/m/n/10 to be the co-vari-ance ma-trix $E []$
  []
 
 [4]
-Underfull \vbox (badness 10000) detected at line 334
- []
-
-
-Underfull \vbox (badness 10000) detected at line 334
+Underfull \vbox (badness 1769) detected at line 377
  []
 
 [5]
-Underfull \vbox (badness 10000) detected at line 334
+Underfull \vbox (badness 10000) detected at line 377
  []
 
 
-Underfull \vbox (badness 10000) detected at line 334
+Underfull \vbox (badness 10000) detected at line 377
  []
 
-[6] [7]
+[6]
+Overfull \vbox (11.13655pt too high) detected at line 377
+ []
+
+[7]
+Underfull \vbox (badness 10000) detected at line 377
+ []
+
+
+Overfull \vbox (1.18893pt too high) detected at line 377
+ []
+
+[8]
+Underfull \vbox (badness 10000) detected at line 377
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 377
+ []
+
+[9] (/usr/local/texlive/2015/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2014/09/06 1.5e listings language file
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/newtx/t1ntxtt.fd
+File: t1ntxtt.fd 2012/04/20 v3.1
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/txfonts/t1txtt.fd
+File: t1txtt.fd 2000/12/15 v3.1
+) [10] [11]
+[12] [13]
 This exam contains 4 questions with 0 parts, 0 subparts, and 0 subsubparts.
 (./HW1.aux) ) 
 Here is how much of TeX's memory you used:
- 18978 strings out of 493089
- 338044 string characters out of 6134842
- 449766 words of memory out of 5000000
- 22050 multiletter control sequences out of 15000+600000
- 50465 words of font info for 41 fonts, out of 8000000 for 9000
+ 19464 strings out of 493089
+ 343383 string characters out of 6134842
+ 528440 words of memory out of 5000000
+ 22521 multiletter control sequences out of 15000+600000
+ 65148 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,21n,54p,883b,581s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,21n,74p,883b,1940s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/newtx/ntx-ec-t
 lf.enc}</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
 0.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/latxfont/
@@ -1380,11 +1426,13 @@ onts/type1/pctex/mtpro2/mt2syf.pfb></usr/local/texlive/texmf-local/fonts/type1/
 pctex/mtpro2/mt2sys.pfb></usr/local/texlive/texmf-local/fonts/type1/pctex/mtpro
 2/mt2syt.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/tex-gyre/qt
 mb.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/tex-gyre/qtmr.pfb
-></usr/local/texlive/2015/texmf-dist/fonts/type1/public/tex-gyre/qtmri.pfb>
-Output written on HW1.pdf (7 pages, 167780 bytes).
+></usr/local/texlive/2015/texmf-dist/fonts/type1/public/tex-gyre/qtmri.pfb></us
+r/local/texlive/2015/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb></usr/loca
+l/texlive/2015/texmf-dist/fonts/type1/public/txfonts/t1xtt.pfb>
+Output written on HW1.pdf (13 pages, 471760 bytes).
 PDF statistics:
- 80 PDF objects out of 1000 (max. 8388607)
- 58 compressed objects within 1 object stream
+ 114 PDF objects out of 1000 (max. 8388607)
+ 78 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 28 words of extra memory for PDF output out of 10000 (max. 10000000)
 
