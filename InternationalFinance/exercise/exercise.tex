@@ -1,0 +1,378 @@
+\title{Economic Time Series HW1}
+\author{Daeyoung Lim}
+
+\documentclass[answers]{exam}
+\usepackage[left=3cm,right=3cm,top=3.5cm,bottom=2cm]{geometry}
+\usepackage{amssymb,amsmath,amsfonts,amsthm}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{kotex}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+% \usepackage{enumerate}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{cancel}
+\usepackage{array}
+\usepackage{courier}
+\usepackage{booktabs}
+\usepackage{titlesec}
+\usepackage[shortlabels]{enumitem}
+\usepackage{setspace}
+\usepackage{newtxtext}
+\usepackage[lite,nofontinfo,zswash,straightbraces]{mtpro2}
+\usepackage{empheq}
+\usepackage{tikz}
+\usepackage{listings}
+
+% \usepackage[toc,page]{appendix}
+
+\setlength{\heavyrulewidth}{1.5pt}
+\setlength{\abovetopsep}{4pt}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\newcommand\encircle[1]{%
+  \tikz[baseline=(X.base)] 
+    \node (X) [draw, shape=circle, inner sep=0] {\strut #1};}
+ 
+% Command "alignedbox{}{}" for a box within an align environment
+% Source: http://www.latex-community.org/forum/viewtopic.php?f=46&t=8144
+\newlength\dlf  % Define a new measure, dlf
+\newcommand\alignedbox[2]{
+% Argument #1 = before & if there were no box (lhs)
+% Argument #2 = after & if there were no box (rhs)
+&  % Alignment sign of the line
+{
+\settowidth\dlf{$\displaystyle #1$}  
+    % The width of \dlf is the width of the lhs, with a displaystyle font
+\addtolength\dlf{\fboxsep+\fboxrule}  
+    % Add to it the distance to the box, and the width of the line of the box     ㅊ
+\hspace{-\dlf}  
+    % Move everything dlf units to the left, so that & #1 #2 is aligned under #1 & #2
+\boxed{#1 #2}
+    % Put a box around lhs and rhs
+}
+}
+\setcounter{secnumdepth}{4}
+\lstset{
+         basicstyle=\footnotesize\ttfamily, % Standardschrift
+         %numbers=left,               % Ort der Zeilennummern
+         numberstyle=\tiny,          % Stil der Zeilennummern
+         %stepnumber=2,               % Abstand zwischen den Zeilennummern
+         numbersep=5pt,              % Abstand der Nummern zum Text
+         tabsize=2,                  % Groesse von Tabs
+         extendedchars=true,         %
+         breaklines=true,            % Zeilen werden Umgebrochen
+         keywordstyle=\color{red},
+            frame=b,         
+ %        keywordstyle=[1]\textbf,    % Stil der Keywords
+ %        keywordstyle=[2]\textbf,    %
+ %        keywordstyle=[3]\textbf,    %
+ %        keywordstyle=[4]\textbf,   \sqrt{\sqrt{}} %
+         stringstyle=\color{white}\ttfamily, % Farbe der String
+         showspaces=false,           % Leerzeichen anzeigen ?
+         showtabs=false,             % Tabs anzeigen ?
+         xleftmargin=17pt,
+         framexleftmargin=17pt,
+         framexrightmargin=5pt,
+         framexbottommargin=4pt,
+         %backgroundcolor=\color{lightgray},
+         showstringspaces=false      % Leerzeichen in Strings anzeigen ?        
+ }
+ \lstloadlanguages{% Check Dokumentation for further languages ...
+         %[Visual]Basic
+         %Pascal
+         %C
+         %C++
+         %XML
+         %HTML
+         Java
+ }
+    %\DeclareCaptionFont{blue}{\color{blue}} 
+
+\definecolor{myblue}{RGB}{72, 165, 226}
+\definecolor{myorange}{RGB}{222, 141, 8}
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+\setlength{\heavyrulewidth}{1.5pt}
+\setlength{\abovetopsep}{4pt}
+\setlength{\parindent}{0mm}
+\linespread{1.3}
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+\DeclareMathOperator{\Tr}{Tr}
+
+\newcommand{\bs}{\boldsymbol}
+\newcommand{\opn}{\operatorname}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % We use newtheorem to define theorem-like structures
+% %
+% % Here are some common ones. . .
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \newtheorem{theorem}{Theorem}
+% \newtheorem{lemma}{Lemma}
+% \newtheorem{proposition}{Proposition}
+% \newtheorem{scolium}{Scolium}   %% And a not so common one.
+% \newtheorem{definition}{Definition}
+% \newenvironment{proof}{{\sc Proof:}}{~\hfill QED}
+% \newenvironment{AMS}{}{}
+% \newenvironment{keywords}{}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %   The first thanks indicates your affiliation
+% %
+% %  Just the name here.
+% %
+% % Your mailing address goes at the end.
+% %
+% % \thanks is also how you indicate grant support
+% %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+\setstretch{1.5} %줄간격 조정
+\newpage
+\firstpageheader{}{}{\bf\large Daeyoung Lim \\ International Finance Seminar \\ Fall Semester, 2016}
+\runningheader{Daeyoung Lim}{International Finance Seminar}{Fall Semester, 2016}
+\begin{questions}
+  \question
+  Consider the following linear regression model:
+  \begin{align}
+    \sigma^{2} &\sim \mathrm{InvGam}\left(\dfrac{\alpha_{0}}{2},\dfrac{\delta_{0}}{2}\right)\\
+    \beta &\sim \mathcal{N}\left(\beta_{0},B_{0}\right)\\
+    Y\,|\,\beta,\sigma^{2} &\sim \mathcal{N}\left(X\beta,\sigma^{2}I_{T}\right)
+  \end{align}
+  with $Y=T\times 1$ vector and $X=T\times k$ matrix. Then, derive the full conditional distribution of $\beta$ and $\sigma^{2}$.
+  \begin{solution}
+    It is well-known that the priors in this model are conditionally conjugate, which means the full conditionals are of the same parametric families as their prior distributions. Therefore, we can compute them as follows.
+    \begin{align}
+      L(\beta,\sigma^{2}\,|\,Y)\pi\left(\beta\right)\pi\left(\sigma^{2}\right) &\propto \mathcal{N}\left(Y\,|\,X\beta,\sigma^{2}I_{T}\right)\cdot \mathcal{N}\left(\beta\,|\,\beta_{0},B_{0}\right)\cdot \mathrm{InvGam}\left(\dfrac{\alpha_{0}}{2},\dfrac{\delta_{0}}{2}\right)\\
+      &\propto \left(\sigma^{2}\right)^{T}\exp\left(-\dfrac{1}{2\sigma^{2}}\left(y-X\beta\right)'\left(y-X\beta\right)\right)\times \exp\left(-\dfrac{1}{2}\left(\beta-\beta_{0}\right)'B_{0}^{-1}\left(\beta-\beta_{0}\right)\right)\\
+      &\quad \times \left(\sigma^{2}\right)^{-\left(\alpha_{0}/2+1\right)}\exp\left(-\dfrac{\delta_{0}}{2}\dfrac{1}{\sigma^{2}}\right)
+    \end{align}
+    Therefore, ignoring all the terms that don't have $\beta$, we get
+    \begin{align}
+      \pi\left(\beta\,|\,Y,\sigma^{2}\right) &\propto \exp\left(-\dfrac{1}{2}\left(\beta'\left(\dfrac{1}{\sigma^{2}}X'X+B_{0}^{-1}\right)\beta-2\left(\dfrac{1}{\sigma^{2}}X'y+B_{0}^{-1}\beta_{0}\right)'\beta\right)\right)
+    \end{align}
+    This is exactly the kernel of a normal distribution. Thus, $\beta\,|\,Y,\sigma^{2}\sim\mathcal{N}\left(\beta_{T},\Sigma_{T}\right)$ where
+    \begin{align}
+      \Sigma_{T} &= \left(\dfrac{1}{\sigma^{2}}X'X+B_{0}^{-1}\right)^{-1}\\
+      \beta_{T} &= \Sigma_{T}\left(\dfrac{1}{\sigma^{2}}X'y+B_{0}^{-1}\beta_{0}\right)
+    \end{align}
+    Likewise,
+    \begin{align}
+      \pi\left(\sigma^{2}\,|\,Y,\beta\right) &\propto \left(\sigma^{2}\right)^{-((T+\alpha_{0})/2+1)}\exp\left(-\dfrac{1}{2\sigma^{2}}\left(\delta_{0}+\left(y-X\beta\right)'\left(y-X\beta\right)\right)\right)
+    \end{align}
+    Therefore,
+    \begin{equation}
+      \sigma^{2}\,|\,Y,\beta \sim \mathrm{InvGam}\left(\dfrac{\alpha_{0}+T}{2},\dfrac{1}{2}\left(\delta_{0}+\left(y-X\beta\right)'\left(y-X\beta\right)\right)\right)
+    \end{equation}
+  \end{solution}
+  \newpage
+  \question
+  (Greenberg, chapter 2) Consider the uniform distribution with density function $f(y_{i}\,|\,\theta)=\theta^{-1}$, $0\leq y_{i}\leq \theta$, and $\theta$ is unknown.
+  \begin{enumerate}[(a)]
+    \item Show that the Pareto distribution, $\mathrm{Pareto}(a,k)$
+    \begin{align}
+      \pi(\theta) = \begin{cases}ak^{a}\theta^{-(a+1)},&\text{if $\theta\geq k$ and $a>0$}\\ 0, & \text{otherwise}  \end{cases}
+    \end{align}
+    is a conjugate prior distribution for the uniform distribution assuming that $a>1$. Hint: If $a>1$, then $\mathbf{E}(\theta)=ak/(a-1)$.
+    \item Show that $\what{\theta}=\max(y_{1},y_{2},\ldots,y_{n})$ is the MLE of $\theta$, where the $y_{i}$ is the random variable from $f(y_{i}\,|\,\theta)$.
+    \item Find the posterior distribution of $\theta$ and the expected value.
+  \end{enumerate}
+  \begin{solution}
+    \begin{enumerate}[(a)]
+      \item Conjugacy implies that the prior and posterior distributions are in the same parametric distributional family. Therefore, we simply need to show that the posterior distribution is also a Pareto distribution.
+      \begin{align}
+        L\left(\theta\,|\,y_{1},\ldots,y_{n}\right) &\propto \pi\left(\theta\right)\prod_{i=1}^{n}f(y_{i}\,|\,\theta)\mathbf{I}_{(y_{(n)},\infty)}(\theta)\cdot\mathbf{I}_{(k,\infty)}(\theta)\\
+        &\propto \theta^{-(\alpha+1)}\cdot \theta^{-1}\cdot \mathbf{I}_{(y_{(n)\vee k},\infty)}(\theta)\\
+        &\propto \theta^{-(\alpha+2)}\mathbf{I}_{(y_{(n)\vee k},\infty)}(\theta)
+      \end{align}
+      Therefore,
+      \begin{align}
+        \theta\,|\,y_{1},\ldots,y_{n}\sim \mathrm{Pareto}(\alpha+1,y_{(n)}\vee k)
+      \end{align}
+      where $\vee$ denotes the maximum operator and $y_{(n)}$ is the maximum order statistic.
+      \item We take the logarithm of the likelihood and use the first-order condition to find the maximum.
+      \begin{align}
+        \ell\left(\theta\,|\,\left\{y_{i}\right\}_{i=1}^{n}\right) &\propto -n\log\theta\cdot \mathbf{I}_{(y_{(n)},\infty)}(\theta)\\
+        \dfrac{d}{d\theta}\ell(\theta)&= -\dfrac{n}{\theta}
+      \end{align}
+      Because the first-derivative is never zero, we need only use the monotone property of the likelihood function. Since it is monotonically decreasing, the maximum value is obtained when $\theta$ is smallest, i.e., $\theta\in(y_{(n)},\infty)$. Therefore,
+      \begin{equation}
+        \what{\theta}^{\text{MLE}} = \inf\left\{\theta\,|\, y_{(n)}<\theta \right\} = y_{(n)}
+      \end{equation}
+      \item We have already found the posterior of $\theta$: $\mathrm{Pareto}(\alpha+1,y_{(n)}\vee k)$. If we let $w=y_{(n)}\vee k$, by definition, the expected value is
+      \begin{align}
+        \mathbf{E}\left(\theta\,|\,\left\{y_{i}\right\}_{i=1}^{n}\right) &= \int_{w}^{\infty}(\alpha+1)w^{\alpha+1}\theta^{-(\alpha+1)}\,d\theta\\
+        &= \dfrac{\alpha+1}{\alpha}w,\quad \text{where }w>0
+      \end{align}
+    \end{enumerate}
+  \end{solution}
+  \question
+  (Greenberg, chapter 2) The density function of the exponential distribution is 
+  \begin{equation}
+    f(y_{i}\,|\,\theta) = \theta e^{-\theta y_{i}},\quad \theta>0, \; y_{i}>0,
+  \end{equation}
+  and let $y_{1},y_{2},\ldots,y_{n}$ be a random sample from the distribution.
+  \begin{enumerate}[(a)]
+    \item Show that the gamma distribution $\mathrm{Ga}(\alpha,\beta)$ is a conjugate prior distribution for the exponential distribution. Hint: The density of $\mathrm{Ga}(\alpha,\beta)$ is
+    \begin{equation}
+      \pi(\theta) = \dfrac{\beta^{\alpha}}{\Gamma(\alpha)}\theta^{\alpha-1}e^{-\beta\theta}
+    \end{equation}
+    \item Show that $1/\overline{y}$ is the MLE for $\theta$ where $\overline{y}$ is the sample mean of the observations.
+    \item Write the mean of the posterior distribution as a weighted average of the mean of the prior distribution and the MLE.
+    \item What happens to the weight on the prior mean as $n$ becomes large?
+  \end{enumerate}
+  \begin{solution}
+    \begin{enumerate}[(a)]
+      \item Again, we need to show that the posterior is again a gamma distribution.
+      \begin{align}
+        \pi\left(\theta\,|\,y_{1},\ldots,y_{n}\right) &\propto \pi\left(\theta\right)\prod_{i=1}^{n}f(y_{i}\,|\,\theta)\\
+        &\propto \theta^{n+\alpha-1}\exp\left(-\left(\beta+\sum_{i=1}^{n}y_{i}\right)\theta\right)\\
+        &\sim \mathrm{Ga}\left(\alpha+n,\beta+\sum_{i=1}^{n}y_{i}\right)
+      \end{align}
+      It is easily recognized that the kernel of the posterior is again a gamma distribution.
+      \item Using the logarithm and the first-order condition,
+      \begin{align}
+        \ell(\theta\,|\,y_{1},\ldots,y_{n}) &\propto n\log\theta-\theta\sum_{i=1}^{n}y_{i}\\
+        \dfrac{d}{d\theta}\ell\left(\theta\,|\,y_{1},\ldots,y_{n}\right) &= \dfrac{n}{\theta}-\sum_{i=1}^{n}y_{i} = 0\\
+        \what{\theta}^{\text{MLE}} &= \left. n\middle/\left(\sum_{i=1}^{n}y_{i}\right)\right.\\
+        &= \dfrac{1}{\overline{y}}
+      \end{align}
+      \item For a gamma distribution with parameters $\alpha$ and $\beta$, the expected value is $\alpha/\beta$. Thus, the posterior expected value is
+      \begin{align}
+        \mathbf{E}\left(\theta\,|\,y_{1},\ldots,y_{n}\right) = \dfrac{\alpha+n}{\beta+\sum_{i=1}^{n}y_{i}}
+      \end{align}
+      The posterior mean can be decomposed in to a weighted average between the prior mean and the MLE as follows:
+      \begin{equation}
+        \dfrac{\alpha+n}{\beta+\sum_{i=1}^{n}y_{i}} = \dfrac{\beta}{\beta+\sum_{i=1}^{n}y_{i}}\times \dfrac{\alpha}{\beta}+\dfrac{\sum_{i=1}^{n}y_{i}}{\beta+\sum_{i=1}^{n}y_{i}}\times\dfrac{n}{\sum_{i=1}^{n}y_{i}}
+      \end{equation}
+      \item Taking the limit, the weight on the prior mean tends to infinity,
+      \begin{equation}
+        \dfrac{\beta}{\beta+\sum_{i=1}^{n}y_{i}}\xrightarrow{n\to\infty} \infty
+      \end{equation}
+      because $\sum_{i=1}^{n}y_{i}\to\infty$. Furthermore, the weight on the MLE converges to $1$ with which we can conclude that the more we data, the closer the posterior mean gets to MLE. In short, with a large amount of data, the posterior mean is not very different from MLE.
+    \end{enumerate}
+  \end{solution}
+  \question
+  (Greenberg, chapter 3) Compute the predictive distribution for $y_{n+1}$ if the $y_{i}$ have independent normal distributions $\mathcal{N}(\mu,1)$, where the prior distribution for $\mu$ is $\mathcal{N}(\mu_{0},\sigma_{0}^{2})$.
+  \begin{solution}
+    First, the posterior distribution of $\mu$ is
+    \begin{align}
+      \pi\left(\mu\,|\,y_{1},\ldots,y_{n}\right) &\propto \exp\left(-\dfrac{1}{2}\sum_{i=1}^{n}\left(y_{i}-\mu\right)^{2}\right)\times\exp\left(-\dfrac{1}{2\sigma_{0}^{2}}\left(\mu-\mu_{0}\right)^{2}\right)\\
+      &\propto \exp\left(-\dfrac{1}{2}\left(\sum_{i=1}^{n}\left(y_{i}-\overline{y}\right)^{2}+n\left(\overline{y}-\mu\right)^{2}\right)-\dfrac{1}{2\sigma_{0}^{2}}\left(\mu-\mu_{0}\right)^{2}\right)\\
+      &\propto \exp\left(-\dfrac{n}{2}\left(\mu^{2}-2\overline{y}\mu\right)-\dfrac{1}{2\sigma_{0}^{2}}\left(\mu^{2}-2\mu_{0}\mu\right)\right)\\
+      &\propto \exp\left(-\dfrac{1}{2}\left(\left(n+\dfrac{1}{\sigma_{0}^{2}}\right)\mu^{2}-2\left(n\overline{y}+\dfrac{1}{\sigma_{0}^{2}}\mu_{0}\right)\mu\right)\right)
+    \end{align}
+    Therefore, $\mu\,|\,y_{1},\ldots,y_{n}\sim\mathcal{N}\left(\mu_{n},\sigma_{n}^{2}\right)$ where
+    \begin{align}
+      \sigma_{n}^{2} &= \left(n+\dfrac{1}{\sigma_{0}^{2}}\right)^{-1}\\
+      \mu_{n} &= \sigma_{n}^{2}\left(n\overline{y}+\dfrac{\mu_{0}}{\sigma_{0}^{2}}\right)
+    \end{align}
+    By definition of the predictive distribution,
+    \begin{align}
+      p\left(y_{n+1}\,|\,y_{n},\ldots,y_{1}\right) &= \int_{-\infty}^{\infty}p(y_{n+1}\,|\,\mu)\cdot \pi(\mu\,|\,y_{1},\ldots,y_{n})\,d\mu\\
+      &= \dfrac{e^{y_{n+1}^{2}+\mu_{n}^{2}/\sigma_{n}^{2}}}{2\pi\sigma_{n}}\int_{-\infty}^{\infty}\exp\left(-\dfrac{1}{2}\left(\left(1+\dfrac{1}{\sigma_{n}^{2}}\right)\mu^{2}-2\left(y_{n+1}+\mu_{n}\right)\mu\right)\right)\\
+      &= \dfrac{\exp\left(y_{n+1}^{2}+\mu_{n}^{2}/\sigma_{n}^{2}\right)}{\sqrt{2\pi\sigma_{n}^{2}}}\cdot\left(1+\dfrac{1}{\sigma_{n}^{2}}\right)^{-1}
+    \end{align}
+  \end{solution}
+  \question
+  Show that the median of the posterior distribution minimizes the absolute loss function.
+  \begin{solution}
+    Let $X$ be a random variable with a distribution function $F$ which is a legitimate measure and let $\mathbf{E}$ denote the expectation with respect to the measure $F$. Then, if we let $m$ denote the median, we can assume that $F$ is zero to the left of an arbitrary constant $A$ and one to the right of $B$.
+    \begin{align}
+      \phi &= \mathbf{E}\left|X-m\right|\\
+      &= \int_{A}^{m}(m-x)\,dF+\int_{m}^{B}(x-m)\,dF
+    \end{align}
+    By interchanging the differentiation and integral (since we need to differentiate so as to get the minimum---first-order condition),
+    \begin{align}
+      \dfrac{d\phi}{dm} &= \int_{A}^{m}1\,dF -\int_{m}^{B}1\,dF =0
+    \end{align}
+    We should solve
+    \begin{align}
+      \int_{A}^{m}1\,dF = \int_{m}^{B}1\,dF
+    \end{align}
+    which is essentially comparing two probability measures, $\Pr(X<m)=\Pr(X>m)$. Since the probability below a constant $m$ and the probability above it are identical, by definition, $m$ is the median that minimizes the absolute loss function. By the same logic, the posterior density must be a Radon-Nikodym derivative of some absolutely continuous measure $P$ with respect to either the Lebesgue measure or the counting measure. Then, the posterior median must be the solution to
+    \begin{align}
+      \int_{A}^{m}1\,dP = \int_{m}^{B}1\,dP
+    \end{align}
+    which translates to $\Pr(\theta < m\,|\,X)=\Pr(\theta>m\,|\,X)$.
+    Therefore, the posterior median minimizes the absolute loss function $\mathbf{E}\left(\left|\theta-m\right|\,\middle|\,X\right)$.
+  \end{solution}
+  \question
+  A vector of observations at time $t$, $x_{t}=(x_{1,t},x_{2,t},\ldots,x_{k,t})'$ has a multinomial distribution, a priori, with $\sum_{i=1}^{k}x_{i,t}=N$ and probabilities $p=(p_{1},p_{2},\ldots,p_{k})$. $p_{i}$ is the probability of $x_{i,t}$ and $\sum_{i=1}^{k}p_{i}=1$. Then, its joint probability of $x_{t}$ is given by
+  \begin{equation}
+    f(x_{t}\,|\,p) = \dfrac{N!}{\prod_{i=1}^{k}x_{i,t}!}\prod_{i=1}^{k}p_{i}^{x_{i,t}},\qquad 0\leq x_{i,t}\leq N.
+  \end{equation}
+  Note that $x_{t}$ is identically and independently distributed for $t=1,2,\ldots,T$. Then, we assume that the joint prior distribution for $p$ is a Dirichlet distribution with parameter $(\alpha_{1},\alpha_{2},\ldots,\alpha_{k})$ and its density is given by
+  \begin{equation}
+    \dfrac{\Gamma\left(\sum_{i=1}^{k}\alpha_{i}\right)}{\prod_{i=1}^{k}\Gamma(\alpha_{i})}\prod_{i=1}^{k}p_{i}^{\alpha_{i}-1},\qquad 0<p_{i}<1,\;\; \alpha_{i}>0,\;\; i=1,2,\ldots,k
+  \end{equation}
+  Derive the posterior distribution of $p$.
+  \begin{solution}
+    Multiplying the likelihood function and the prior,
+    \begin{align}
+      \pi\left(p\,|\,\mathbf{x}\right) &\propto \pi\left(p\right)\prod_{t=1}^{T}f(x_{t}\,|\,p)\\
+      &\propto \prod_{i=1}^{k}p_{k}^{\alpha_{i}-1}\prod_{t=1}^{T}\prod_{i=1}^{k}p_{i}^{x_{i,k}}\\
+      &\propto \prod_{i=1}^{k}p_{i}^{\sum_{t=1}^{T}x_{i,k}+\alpha_{i}-1}
+    \end{align}
+    This is the kernel of a Dirichlet distribution. Thus,
+    \begin{align}
+      p\,|\,\mathbf{x} \sim \mathrm{Dir}\left(\sum_{t=1}^{T}x_{1,t}+\alpha_{1},\ldots,\sum_{t=1}^{T}x_{k,t}+\alpha_{k}\right)
+    \end{align}
+    Since the posterior belongs to the same parametric family as the prior, it is conjugate.
+  \end{solution}
+  \question
+  Show that the mode of the posterior distribution minimizes the following loss function
+  \begin{equation}
+    L_{3}(\what{\theta}\,|\,\theta)=\mathbf{I}\left(\left|\what{\theta}-\theta\right|>b\right)
+  \end{equation}
+  for any small $b>0$.
+  \begin{solution}
+    The expected zero-one loss is computed as follows.
+    \begin{align}
+      \mathbf{E}\left(\mathbf{I}\left(\left|\theta-\what{\theta}\right|>b\right)\,\middle|\,X\right) &= \int_{-\infty}^{\infty}\mathbf{I}\left(\left|\theta-\what{\theta}\right|>b\right)p\left(\theta\,|\,X\right)\,d\theta\\
+      &= \int_{-\infty}^{\infty}\left(1-\mathbf{I}\left(\left|\theta-\what{\theta}\right|\leq b\right)\right)p\left(\theta\,|\,X\right)\,d\theta\\
+      &= 1-\int_{\left|\theta-\what{\theta}\right|\leq b} p\left(\theta\,|\,X\right)\,d\theta\\
+      &= 1-\Pr\left(\left|\theta-\what{\theta}\right|\leq b\,\middle|\, X\right)\\
+      &= 1-\Pr\left(\what{\theta}-b\leq \theta \leq \what{\theta}+b\,\middle|\,X\right)
+    \end{align}
+    With a small arbitrary constant $b$, the posterior probability measure on the neighborhood of $\what{\theta}$ of distance $b$ is maximized when $\what{\theta}$ is the posterior mode. This is equivalent to saying $1$ minus the posterior probability measure on the neighborhood of $\what{\theta}$ of distance $b$ is minimized when $\what{\theta}$ is the posterior mode. Thus, the posterior mode minimizes the expected zero-one loss.
+  \end{solution}
+  \question
+  Explain the following terminologies.
+  \begin{enumerate}[(1)]
+    \item Prior distribution
+    \item Model
+    \item Posterior distribution
+    \item Likelihood
+    \item Marginal likelihood
+    \item Posterior predictive distribution
+    \item Posterior predictive density
+    \item Predictive likelihood
+    \item Posterior probability of models
+    \item Full conditional distribution
+    \item Gibbs sampling
+  \end{enumerate}
+  \begin{solution}
+    \begin{enumerate}[(1)]
+      \item A prior distribution is the distribution that encodes the belief that one has about the parameter before observing data.
+      \item A model is essentially a representation which describes the data generating process that the researcher believes in.
+      \item The posterior distribution is the updated distribution of the parameter after having incoporated all the observed data.
+      \item The likelihood is a function of the parameter given data. Although the likelihood is the same as the joint probability of the data, the distinction should be made between the two in that we only discuss \emph{probability} before we observe the data whereas the likelihood is discussed after we have obtained the data.
+      \item A marginal likelihood is mathematically the expression in which the parameter has been integrated out. Intuitively, it is the distribution of the data that involves the uncertainty of the parameter. It also has an interpretation in terms of the predictive distribution.
+      \item The posterior predictive distribution is the distribution of the first observation, $y_{T+1}$ in the future given the observations up to time $T$, $y_{1},\ldots,y_{T}$.
+      \item The posterior predictive density is the distribution of future $H$ observations,$y_{T+1},\ldots,y_{T+H}$ given the observations up to time $T$, $y_{1},\ldots,y_{T}$.
+      \item The predictive likelihood is
+      \item The posterior probability of models is the probability of postulated models, $M_{1},M_{2},\ldots$ after having observed data. Normally, the prior for each model is assumed to be equal across all models.
+      \item The full conditional distribution is the distribution of a chosen parameter given everything else.
+      \item Gibbs sampling is an MCMC algorithm that can be used if every parameter is conditionally conjugate, which is a special case of the Metropolis-Hastings algorithm.
+    \end{enumerate}
+  \end{solution}
+\end{questions}
+\end{document}

@@ -1,0 +1,272 @@
+\title{Statistics for Economics}
+\author{Daeyoung Lim}
+
+\documentclass[answers]{exam}
+\usepackage[left=3cm,right=3cm,top=3.5cm,bottom=2cm]{geometry}
+\usepackage{amssymb,amsmath,amsfonts,amsthm}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{kotex}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+% \usepackage{enumerate}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{cancel}
+\usepackage{array}
+\usepackage{courier}
+\usepackage{booktabs}
+\usepackage{titlesec}
+\usepackage[shortlabels]{enumitem}
+\usepackage{setspace}
+\usepackage{newtxtext}
+\usepackage[lite,nofontinfo,zswash,straightbraces]{mtpro2}
+\usepackage{empheq}
+\usepackage{tikz}
+\usepackage{listings}
+
+% \usepackage[toc,page]{appendix}
+
+\setlength{\heavyrulewidth}{1.5pt}
+\setlength{\abovetopsep}{4pt}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\newcommand\encircle[1]{%
+  \tikz[baseline=(X.base)] 
+    \node (X) [draw, shape=circle, inner sep=0] {\strut #1};}
+ 
+% Command "alignedbox{}{}" for a box within an align environment
+% Source: http://www.latex-community.org/forum/viewtopic.php?f=46&t=8144
+\newlength\dlf  % Define a new measure, dlf
+\newcommand\alignedbox[2]{
+% Argument #1 = before & if there were no box (lhs)
+% Argument #2 = after & if there were no box (rhs)
+&  % Alignment sign of the line
+{
+\settowidth\dlf{$\displaystyle #1$}  
+    % The width of \dlf is the width of the lhs, with a displaystyle font
+\addtolength\dlf{\fboxsep+\fboxrule}  
+    % Add to it the distance to the box, and the width of the line of the box     ㅊ
+\hspace{-\dlf}  
+    % Move everything dlf units to the left, so that & #1 #2 is aligned under #1 & #2
+\boxed{#1 #2}
+    % Put a box around lhs and rhs
+}
+}
+\setcounter{secnumdepth}{4}
+\lstset{
+         basicstyle=\footnotesize\ttfamily, % Standardschrift
+         %numbers=left,               % Ort der Zeilennummern
+         numberstyle=\tiny,          % Stil der Zeilennummern
+         %stepnumber=2,               % Abstand zwischen den Zeilennummern
+         numbersep=5pt,              % Abstand der Nummern zum Text
+         tabsize=2,                  % Groesse von Tabs
+         extendedchars=true,         %
+         breaklines=true,            % Zeilen werden Umgebrochen
+         keywordstyle=\color{red},
+            frame=b,         
+ %        keywordstyle=[1]\textbf,    % Stil der Keywords
+ %        keywordstyle=[2]\textbf,    %
+ %        keywordstyle=[3]\textbf,    %
+ %        keywordstyle=[4]\textbf,   \sqrt{\sqrt{}} %
+         stringstyle=\color{white}\ttfamily, % Farbe der String
+         showspaces=false,           % Leerzeichen anzeigen ?
+         showtabs=false,             % Tabs anzeigen ?
+         xleftmargin=17pt,
+         framexleftmargin=17pt,
+         framexrightmargin=5pt,
+         framexbottommargin=4pt,
+         %backgroundcolor=\color{lightgray},
+         showstringspaces=false      % Leerzeichen in Strings anzeigen ?        
+ }
+ \lstloadlanguages{% Check Dokumentation for further languages ...
+         %[Visual]Basic
+         %Pascal
+         %C
+         %C++
+         %XML
+         %HTML
+         Java
+ }
+    %\DeclareCaptionFont{blue}{\color{blue}} 
+
+\definecolor{myblue}{RGB}{72, 165, 226}
+\definecolor{myorange}{RGB}{222, 141, 8}
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+\setlength{\heavyrulewidth}{1.5pt}
+\setlength{\abovetopsep}{4pt}
+\setlength{\parindent}{0mm}
+\linespread{1.3}
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+\DeclareMathOperator{\Tr}{Tr}
+
+\newcommand{\bs}{\boldsymbol}
+\newcommand{\opn}{\operatorname}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % We use newtheorem to define theorem-like structures
+% %
+% % Here are some common ones. . .
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \newtheorem{theorem}{Theorem}
+% \newtheorem{lemma}{Lemma}
+% \newtheorem{proposition}{Proposition}
+% \newtheorem{scolium}{Scolium}   %% And a not so common one.
+% \newtheorem{definition}{Definition}
+% \newenvironment{proof}{{\sc Proof:}}{~\hfill QED}
+% \newenvironment{AMS}{}{}
+% \newenvironment{keywords}{}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %   The first thanks indicates your affiliation
+% %
+% %  Just the name here.
+% %
+% % Your mailing address goes at the end.
+% %
+% % \thanks is also how you indicate grant support
+% %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+\setstretch{1.5} %줄간격 조정
+\newpage
+\firstpageheader{}{}{\bf\large Daeyoung Lim \\ Statistics for Economics \\ Fall, 2016}
+\runningheader{Daeyoung Lim}{Statistics for Economics}{Fall, 2016}
+\begin{questions}
+  \question
+  The sample space $\Omega$ is $\Omega=[0,1]$ and the probability can be expressed as follows.
+  \begin{equation}
+    p(x) = 2xI\left\lbrace 0\leq x \leq 1\right\rbrace
+  \end{equation}
+  Let random variables $X$ and $Y$ be defined as below.
+  \begin{align}
+    X(\omega) = \begin{cases}1, & \text{if $0\leq \omega < 1/4$}\\ 0, & \text{if $1/4\leq \omega < 1/2$}\\ -1, & \text{if $1/2\leq \omega <3/4$}\\ 0, & \text{if $3/4 \leq \omega \leq 1$} \end{cases}, \qquad Y(\omega) = \begin{cases}1, & \text{if $0\leq \omega < 1/2$}\\ 0, & \text{if $1/2\leq \omega \leq 1$} \end{cases}
+  \end{align}
+  \begin{enumerate}[(1)]
+    \item Compute the joint density of $X$ and $Y$.
+    \item Compute the marginal densities of $X$ and $Y$ respectively.
+    \item Compute the expectations of $X$ and $Y$ respectively.
+    \item Compute the conditional expectation $\mathbf{E}(X\,|\,Y)$.
+  \end{enumerate}
+  \begin{solution}
+    \begin{enumerate}[(1)]
+      \item If we get every combination of possible values of $X$ and $Y$, then we can say that we have obtained the joint probability mass function of $X$ and $Y$.
+      \begin{itemize}
+        \item $\Pr(X=0,Y=0)$
+        \begin{align}
+          &= \Pr\left[\left(\left\lbrace \omega\,|\, \dfrac{1}{4}\leq\omega <\dfrac{1}{2}\right\rbrace \cup \left\lbrace \omega\,|\, \dfrac{3}{4}\leq \omega \leq 1 \right\rbrace\right)\cap \left\lbrace \omega\,|\, \dfrac{1}{2}\leq \omega\leq 1\right\rbrace\right]\\
+          &= \Pr\left[\left\lbrace \omega\,|\, \dfrac{3}{4}\leq \omega\leq 1\right\rbrace \right]\\
+          &= \int\limits_{3/4}^{1}2x\,dx = 1-\dfrac{9}{16}\\
+          &= \dfrac{7}{16}
+        \end{align}
+        \item $\Pr(X=0,Y=1)$
+        \begin{align}
+          &= \Pr\left[\left(\left\lbrace \omega\,|\, \dfrac{1}{4}\leq\omega <\dfrac{1}{2}\right\rbrace \cup \left\lbrace \omega\,|\, \dfrac{3}{4}\leq \omega \leq 1 \right\rbrace\right)\cap \left\lbrace \omega\,|\, 0\leq \omega< \dfrac{1}{2}\right\rbrace\right]\\
+          &= \Pr\left[\left\lbrace \omega\,|\, \dfrac{1}{4}\leq \omega< \dfrac{1}{2}\right\rbrace \right]\\
+          &= \int\limits_{1/4}^{1/2}2x\,dx= \dfrac{1}{4}-\dfrac{1}{16}\\
+          &= \dfrac{3}{16}
+        \end{align}
+        \item $\Pr(X=1,Y=0)$
+        \begin{align}
+          &= \Pr\left[\left\lbrace \omega\,|\,0\leq \omega < \dfrac{1}{4}\right\rbrace \cup \left\lbrace \omega\,|\, \dfrac{1}{2}\leq \omega\leq 1\right\rbrace \right]\\
+          &= \Pr\left[\emptyset\right]\\
+          &= 0
+        \end{align}
+        \item $\Pr(X=1,Y=1)$
+        \begin{align}
+          &= \Pr\left[\left\lbrace \omega\,|\, 0\leq \omega<\dfrac{1}{4}\right\rbrace \cup \left\lbrace 0\leq \omega < \dfrac{1}{2}\right\rbrace \right]\\
+          &= \Pr\left[\left\lbrace \omega\,|\,0\leq \omega < \dfrac{1}{2}\right\rbrace\right]\\
+          &= \int\limits_{0}^{1/4}2x\,dx = \dfrac{1}{16}
+        \end{align}
+        \item $\Pr(X=-1,Y=0)$
+        \begin{align}
+          &= \Pr\left[\left\lbrace \omega\,|\, \dfrac{1}{2}\leq \omega < \dfrac{3}{4}\right\rbrace \cup \left\lbrace \omega\,|\, \dfrac{1}{2}\leq \omega \leq 1 \right\rbrace \right]\\
+          &= \Pr\left[\left\lbrace \omega\,|\, \dfrac{1}{2}\leq \omega < \dfrac{3}{4}\right\rbrace \right]\\
+          &= \int\limits_{1/2}^{3/4}2x\,dx = \dfrac{9}{16}-\dfrac{1}{4}\\
+          &= \dfrac{5}{16}
+        \end{align}
+        \item $\Pr(X=-1,Y=1)$
+        \begin{align}
+          &= \Pr\left[\left\lbrace \omega\,|\, \dfrac{1}{2}\leq \omega < \dfrac{3}{4}\right\rbrace \cup \left\lbrace \omega\,|\,0\leq \omega \leq \dfrac{1}{2} \right\rbrace \right]\\
+          &= \Pr\left(\left\lbrace\dfrac{1}{2} \right\rbrace \right)\\
+          &= 0
+        \end{align}
+        because the probability for a singleton with respect to a continuous random variable is always zero.
+      \end{itemize}
+      \item For $X$,
+      \begin{itemize}
+        \item $\Pr(X=1)$
+        \begin{align}
+          &= \Pr\left[\left\lbrace \omega\,|\, 0\leq \omega < \dfrac{1}{4}\right\rbrace \right]\\
+          &= \int\limits_{0}^{1/4}2x\,dx = \dfrac{1}{16}
+        \end{align}
+        \item $\Pr(X=0)$
+        \begin{align}
+          &= \Pr\left[\left\lbrace \omega\,|\,\dfrac{1}{4}\leq \omega < \dfrac{1}{2}\right\rbrace \cup \left\lbrace \omega\,|\, \dfrac{3}{4}\leq \omega\leq 1\right\rbrace \right]\\
+          &= \int\limits_{1/4}^{1/4}2x\,dx + \int\limits_{3/4}^{1}2x\,dx= \left( \dfrac{1}{4}-\dfrac{1}{16}\right)+\left(1-\dfrac{9}{16}\right) \\
+          &= \dfrac{5}{8}
+        \end{align}
+        \item $\Pr(X=-1)$
+        \begin{align}
+          &= \Pr\left[\left\lbrace \omega\,|\,\dfrac{1}{2}\leq \omega < \dfrac{3}{4}\right\rbrace \right]\\
+          &= \int\limits_{1/2}^{3/4}2x\,dx = \dfrac{9}{16}-\dfrac{1}{4}\\
+          &= \dfrac{5}{16}
+        \end{align}
+      \end{itemize}
+      For $Y$,
+      \begin{itemize}
+        \item $\Pr(Y=0)$
+        \begin{align}
+          &= \Pr\left[\left\lbrace \omega\,|\, \dfrac{1}{2}\leq \omega\leq 1\right\rbrace \right]\\
+          &= \int\limits_{1/2}^{1}2x\,dx = 1-\dfrac{1}{4}\\
+          &= \dfrac{3}{4}
+        \end{align}
+        \item $\Pr(Y=1)$
+        \begin{align}
+          &= \Pr\left[\left\lbrace \omega\,|\,0\leq \omega < \dfrac{1}{2}\right\rbrace  \right]\\
+          &= \int\limits_{0}^{1/2}2x\,dx\\
+          &= \dfrac{1}{4}
+        \end{align}
+      \end{itemize}
+      \item Since we know the marginal distributions of $X$ and $Y$, we in full position to compute the expectations.
+      \begin{itemize}
+        \item For $\mathbf{E}(X)$,
+        \begin{align}
+          \mathbf{E}(X) &= 1\times \dfrac{1}{16}+0\times \dfrac{5}{8}-1\times \dfrac{5}{16}\\
+          &= -\dfrac{1}{4}
+        \end{align}
+        \item For $\mathbf{E}(Y)$,
+        \begin{align}
+          \mathbf{E}(Y) &= 0\times \dfrac{3}{4}+1\times \dfrac{1}{4}\\
+          &= \dfrac{1}{4}
+        \end{align}
+      \end{itemize}
+      \item By definition of the conditional expectation,
+      \begin{align}
+        \mathbf{E}(X\,|\,Y) &= \sum_{x\in \mathcal{X}}x\Pr(X=x\,|\,Y=y)
+      \end{align}
+      which means we have 2 different cases of $Y=y$ to be conditioned on.
+      \begin{itemize}
+          \item $\mathbf{E}(X\,|\,Y=1)$
+          \begin{align}
+            &= \sum_{x\in \mathcal{X}} x\Pr(X=x\,|\,Y=1)\\
+            &= \sum_{x\in \mathcal{X}} x\dfrac{\Pr(X=x,Y=1)}{\Pr(Y=1)}\\
+            &= 1\times \dfrac{\Pr(X=1,Y=1)}{\Pr(Y=1)}+0\times\dfrac{\Pr(X=0,Y=1)}{\Pr(Y=1)}-1\times\dfrac{\Pr(X=-1,Y=1)}{\Pr(Y=1)}
+          \end{align}
+          \item $\mathbf{E}(X\,|\,Y=0)$
+          \begin{align}
+            &= \sum_{x\in\mathcal{X}}x\Pr(X=x\,|\,Y=0)\\
+            &= \sum_{x\in \mathcal{X}}x\dfrac{\Pr(X=x,Y=0)}{\Pr(Y=0)}\\
+            &= 1\times \dfrac{\Pr(X=1,Y=0)}{\Pr(Y=0)}+0\times\dfrac{\Pr(X=0,Y=0)}{\Pr(Y=0)}-1\times\dfrac{\Pr(X=-1,Y=0)}{\Pr(Y=0)}
+          \end{align}
+      \end{itemize}
+    \end{enumerate}
+  \end{solution}
+\end{questions}
+\end{document}
