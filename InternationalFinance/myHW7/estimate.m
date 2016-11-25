@@ -2,10 +2,16 @@ clc;
 p    = 4;
 mlag = 24;
 
-Data    = xlsread('watson.xls','Sheet1','A1:C167'   );
+Data    = xlsread('watson.xls',1,'A1:C167');
 
 Y       = centre(Data);
 m       = size(Y,2);
+% set up data
+X = zeros(T,m*p);
+for t = 1:T
+  X(t,:) = 
+
+
 burnin  = 2000;
 nSample = 2000;
 thinin  = 4;

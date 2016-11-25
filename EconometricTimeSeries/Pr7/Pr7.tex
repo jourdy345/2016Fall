@@ -1,8 +1,7 @@
-% \title{Economic Time Series HW2}
-% \author{Daeyoung Lim}
+\title{Economic Time Series HW2}
+\author{Daeyoung Lim}
 
-% \documentclass[answers]{exam}
-\documentclass{article}
+\documentclass[answers]{exam}
 \usepackage[left=3cm,right=3cm,top=3.5cm,bottom=2cm]{geometry}
 \usepackage{amssymb,amsmath,amsfonts,amsthm}
 \usepackage{mathtools}
@@ -26,6 +25,7 @@
 \usepackage{empheq}
 \usepackage{tikz}
 \usepackage{listings}
+\usepackage{titlesec}
 
 % \usepackage[toc,page]{appendix}
 
@@ -105,13 +105,10 @@
 \DeclareMathOperator{\sech}{sech}
 \DeclareMathOperator{\csch}{csch}
 \DeclareMathOperator*{\argmin}{\arg\!\min}
-\DeclareMathOperator{\tr}{tr}
-\DeclareMathOperator{\ve}{vec}
-% \DeclareMathOperator{\Pro}{P}
+\DeclareMathOperator{\Tr}{Tr}
 
 \newcommand{\bs}{\boldsymbol}
 \newcommand{\opn}{\operatorname}
-% \newcommand{\vecc}{\operatorname{vec}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % % We use newtheorem to define theorem-like structures
 % %
@@ -140,69 +137,55 @@
 \begin{document}
 \setstretch{1.5} %줄간격 조정
 \newpage
-Let the model be
-\begin{align}
-  B &= (c,A_{1},\ldots,A_{p});\quad (m\times (mp+1))\\
-  x_{t} &= \begin{bmatrix}1 \\ y_{t-1}\\ \vdots \\ y_{t-p}\end{bmatrix}; \quad ((mp+1)\times 1)\\
-\end{align}
-and define
-\begin{align}
-  X &= \begin{bmatrix} x_{1}'\\ x_{2}'\\ \vdots \\ x_{T}'\end{bmatrix}; \quad (T\times (mp+1))\\
-  y &= \begin{bmatrix} (y_{11}\ldots y_{1T})'\\ \vdots \\ (y_{m1}\ldots y_{mT})'\end{bmatrix}; \quad (Tm\times 1)
-\end{align}
-and $\alpha = \ve(B)$, that is, $m(mp+1)\times 1$ vector. VAR(p) can be written as
-\begin{equation}
-  y = (I_{m}\otimes X)\alpha + \epsilon,
-\end{equation}
-where $\epsilon\sim \mathcal{N}(0,\Omega^{-1}\otimes I_{T})$.
-\begin{itemize}
-  \item $L(\Omega,\alpha\,|\,y,X)\propto |\Omega|^{-T/2}\exp\left[-\dfrac{1}{2}(y-(I_{m}\otimes X)\alpha)'(\Omega^{-1}\otimes I_{T})(y-(I_{m}\otimes X)\alpha)\right] $
-  \item $\pi(\alpha)\propto \exp\left[-\dfrac{1}{2}(\alpha-\mu_{\alpha})'\Sigma_{\alpha}^{-1}(\alpha-\mu_{\alpha})\right]$
-  \item $\pi(\Omega)\propto |\Omega|^{-(b-m-1)/2}\exp\left[-\dfrac{1}{2}\tr(D^{-1}\Omega^{-1})\right] $
-\end{itemize}
-\subsection{Estimating $\alpha$}
-\begin{align}
-  \pi(\alpha\,|\,\text{rest}) &\propto \exp\left[-\dfrac{1}{2}\left(\alpha'\left(\left(I_{m}\otimes X\right)'\left(\Omega^{-1}\otimes I_{T}\right)\left(I_{m}\otimes X\right)+\Sigma_{\alpha}^{-1}\right)\alpha -2\alpha'\left(\Sigma_{\alpha}^{-1}\mu_{\alpha}+\left(I_{m}\otimes X\right)'\left(\Omega^{-1}\otimes I_{m}\right)y\right)\right)\right]
-\end{align}
-Thus, $\alpha\,|\,\text{rest}\sim\mathcal{N}\left(\mu_{\alpha}^{T},\Sigma_{\alpha}^{T}\right)$ where
-\begin{align}
-  \Sigma_{\alpha}^{T} &= \left(\left(\Omega^{-1}\otimes X'X\right)+\Sigma_{\alpha}^{-1}\right)^{-1}\\
-  \mu_{\alpha}^{T} &= \Sigma_{\alpha}^{p}\left(\Sigma_{\alpha}^{-1}\mu_{\alpha}+\left(\Omega^{-1}\otimes X'\right)y\right)
-\end{align}
-\subsection{Estimating $\Omega$}
-If we define
-\begin{equation}
-  Y = \begin{bmatrix} y_{11} & y_{21} & \cdots & y_{m1}\\ y_{12} & y_{22}& \cdots & y_{m2} \\ \cdots & \cdots & \ddots & \vdots \\ y_{1T} & y_{2T} & \cdots & y_{mT}\end{bmatrix}; \quad (T\times m)
-\end{equation}
-In fact, $ y = \ve Y$. By the identity
-\begin{align}
-  \tr(A_{1}A_{2}A_{3}) &= \ve (A_{1})'(A_{3}\otimes I)\ve (A_{2})\\
-  &= \ve (A_{2})'(A_{1}\otimes I)\ve (A_{3})\\
-  &= \ve(A_{3})'(A_{2}\otimes I)\ve(A_{1})
-\end{align}
-we can get the following relation.
-\begin{equation}
-  \left(y-\left(I_{m}\otimes X\right)\alpha\right)'\left(\Omega^{-1}\otimes I_{T}\right)\left(y-\left(I_{m}\otimes X\right)\alpha\right) = \tr\left(\left(Y'-BX'\right)\left(Y-XB'\right)\Omega^{-1}\right)
-\end{equation}
-\begin{align}
-  \pi(\Omega\,|\,\text{rest}) &\propto |\Omega|^{-(T+b-m-1)/2}\exp\left[-\dfrac{1}{2}\left(\tr\left(D^{-1}\Omega^{-1}\right)+\tr\left((Y'-BX')(Y-XB')\Omega^{-1}\right)\right)\right]\\
-  &= |\Omega|^{-(T+b-m-1)/2}\exp\left[-\dfrac{1}{2}\tr\left(\left(D^{-1}+\left(Y'-BX'\right)\left(Y-XB'\right) \right)\Omega^{-1}\right)\right]
-\end{align}
-Therefore, $\Omega\,|\,\text{rest} \sim \mathcal{W}_{m}\left(T+b,R_{T}\right)$ where
-\begin{equation}
- R_{T} = \left(D^{-1}+\left(Y'-BX'\right)\left(Y-XB'\right) \right)^{-1}
-\end{equation}
-% \firstpageheader{}{}{\bf\large Daeyoung Lim \\ Economic Time Series \\ Fall Semester, 2016}
-% \runningheader{Daeyoung Lim}{Economic Time Series}{Fall Semester, 2016}
-% \begin{questions}
-%   \question
-%   Download CD.txt, GDP.txt, CPI.txt
-%   \begin{solution}
-%     \begin{align}
-%         L(\boldsymbol{\Psi},\Omega\,|\,y_{1:T}) = p(y_{1}\,|\,\boldsymbol{\Psi},\Omega)\prod_{t=2}^{T}p(y_{t}\,|\,\boldsymbol{\Psi},\Omega)
-%     \end{align}
-%   \end{solution}
-%   \question
-%   Test the hypothesis of white noise for each of the three variables, 
-% \end{questions}
+\firstpageheader{}{}{\bf\large Daeyoung Lim \\ Economic Time Series \\ Fall Semester, 2016}
+\runningheader{Daeyoung Lim}{Economic Time Series}{Fall Semester, 2016}
+
+\begin{questions}
+    \question
+    Consider the following MA(2) process:
+    \begin{equation}
+      x_{t} = (1+2.4L+0.8L^{2})e_{t}
+    \end{equation}
+    where $e_{t} \sim \mathrm{WN}(0,1)$.
+    \begin{enumerate}[(a)]
+      \item Is this process stationary? Prove it using autocovariance function.
+      \item Is it invertible? If so, prove. Otherwise, find the invertible representation for the process. Calculate the autocovariance of the invertible representation and verify that they are the same as those obtained in (a).
+    \end{enumerate}
+    \begin{solution}
+      \begin{enumerate}[(a)]
+        \item Since $e_{t}$ is a white noise, its mean is zero and its autocovariance function is
+        \begin{equation}
+          R_{e}(h) = \begin{cases}1, & \text{if $h=0$}\\ 0, & \text{otherwise} \end{cases}=\mathbb{I}_{\left\{0\right\}}(h)
+        \end{equation}
+        Moreover, if we define $\psi(L)=1+2.4L+0.8L^{2}$, it follows that
+        \begin{equation}
+          \sum_{j=-\infty}^{\infty}\left|\psi_{j}^{2}\right|<\infty.
+        \end{equation}
+        By proposition 1 in p.50 in the lecture note, $x_{t}$ is also stationary whose covariance function is
+        \begin{align}
+          R_{x}(h) &= \sum_{j,k=-\infty}^{\infty}\psi_{j}\psi_{k}R_{e}(h-j+k)\\
+          &= \sum_{j,k=1}^{2}\psi_{j}\psi_{k}\mathbb{I}_{\left\{0\right\}}(h-j+k)\\
+          &= \begin{cases}1+\psi_{1}^{2}+\psi_{2}^{2},& \text{if $h=0$}\\\psi_{1}^{2}+\psi_{1}\psi_{2}, & \text{if $|h|=1$}\\ \psi_{2}, & \text{if $|h|=2$}\\ 0, & \text{if $|h|>2$} \end{cases}
+        \end{align}
+        \item By theorem 2 in p.52 of the lecture note, $A(L)=1$ and $\Psi(L)=1+\psi_{1}L+\psi_{2}L^{2}$ have no common zeros since
+        \begin{equation}
+          \Psi(z) = 1+2.4z+0.8z^{2}=0
+        \end{equation}
+        to which the solutions are $z=-2.5$ and $z=-0.5$. Therefore, the process is non-invertible. To get the invertible representation, we should reciprocate the problematic root, which yields
+        \begin{equation}
+          \tilde{x}_{t} = \left(1-\tilde{\psi}_{1}L-\tilde{\psi}_{2}L^{2}\right)\tilde{e}_{t}, \quad \tilde{e}_{t}\sim\mathrm{WN}\left(0,\sigma^{2}\right)
+        \end{equation}
+        where $\tilde{\psi}_{1}=-4.5$, $\tilde{\psi}_{2}=-5$, and $\sigma^{2}=0.16$. This comes from the factorized equation
+        \begin{equation}
+          \left(1+2z\right)\left(1+\dfrac{z}{0.4}\right)
+        \end{equation}
+        so as to push the roots outside of the unit circle.
+      For any general MA(2) model, the autocovariance function becomes as follows,
+      \begin{align}
+        R_{\tilde{x}}(h) = \begin{cases}\sigma^{2}\left(1+\tilde{\psi}_{1}^{2}+\tilde{\psi}_{2}^{2}\right)=7.4, & \text{if $h=0$}\\ -\sigma^{2}\tilde{\psi}_{1}\left(1-\tilde{\psi}_{2}\right)=4.32,& \text{if $|h|=1$}\\ -\sigma^{2}\tilde{\psi}_{2}=0.8, & \text{if $|h|=2$}\\ 0, & \text{if $|h|>2$} \end{cases}
+      \end{align}
+      Thus, $\tilde{x}_{t}=\left(1+4.5L+5L^{2}\right)\tilde{e}_{t}$ becomes the invertible counterpart.
+      \end{enumerate}
+    \end{solution}
+\end{questions}
 \end{document}
